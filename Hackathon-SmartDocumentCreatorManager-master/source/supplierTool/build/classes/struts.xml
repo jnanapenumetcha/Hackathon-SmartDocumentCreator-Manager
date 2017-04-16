@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+
+	<constant name="struts.devMode" value="true" />
+	<constant name="struts.custom.i18n.resources" value="global" />
+
+	<package name="default" namespace="/" extends="struts-default">
+
+		<action name="fileUploadAction" class="com.mkyong.common.action.FileUploadAction"
+			method="display">
+			<result name="none">pages/getStarted.jsp</result>
+		</action>
+
+		<action name="resultAction" class="com.mkyong.common.action.FileUploadAction">
+			<result name="success">pages/getStarted.jsp</result>
+			<result name="input">pages/getStarted.jsp</result>
+		</action>
+
+		<action name="downloadTemplate" class="com.mkyong.common.action.DownloadTemplateAction">
+			<result name="success" type="stream">
+				<param name="contentType">application/octet-stream</param>
+				<param name="inputName">fileInputStream</param>
+				<param name="contentDisposition">attachment;filename="supplierTemplate.xlsx"</param>
+				<param name="bufferSize">1024</param>
+			</result>
+		</action>
+
+		<action name="downloadExcel" class="com.mkyong.common.action.DownloadExcelAction">
+			<result name="error">pages/index.jsp</result>
+			<result name="input">pages/index.jsp</result>
+			
+		</action>
+		
+		<action name="generateAction" class="com.mkyong.common.action.GenerateDocuments">
+			<result name="success" type="redirect">getStartedPage</result>
+		</action>
+		
+		<action name="getStartedPage" class="com.mkyong.common.action.GetStarted" method="executePage">
+			<result name="success">pages/getStarted.jsp</result>
+		</action>
+		
+		<action name="getdocsPage" class="com.mkyong.common.action.GetDocuments">
+			<result name="success">pages/getdocs.jsp</result>
+		</action>
+
+	</package>
+
+</struts>
